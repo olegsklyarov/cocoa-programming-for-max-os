@@ -31,11 +31,15 @@ int main(int argc, const char *argv[]) {
                 [[LotteryEntry alloc] initWithEntryDate:iWeekFromNow];
 
             [array addObject:newEntry];
+            [newEntry release];
         }
+        [now release];
+        [weekComponents release];
 
         for (LotteryEntry *entryToPrint in array) {
             NSLog(@"%@", entryToPrint);
         }
+        [array release];
     }
     return EXIT_SUCCESS;
 }

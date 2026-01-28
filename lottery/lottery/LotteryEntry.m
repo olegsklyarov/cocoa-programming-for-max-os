@@ -12,7 +12,7 @@
 - (id)initWithEntryDate:(NSDate *)theDate {
     self = [super init];
     if (self) {
-        entryDate = theDate;
+        entryDate = [theDate retain];
         firstNumber = [LotteryEntry randomIntegerBetweenMin:0 andMax:100];
         secondNumber = [LotteryEntry randomIntegerBetweenMin:0 andMax:100];
     }
@@ -23,12 +23,20 @@
     return [self initWithEntryDate:[NSDate date]];
 }
 
+- (void)dealloc {
+    NSLog(@"deallocating %@", self);
+    [entryDate release];
+    [super dealloc];
+}
+
 + (NSInteger)randomIntegerBetweenMin:(NSInteger)min andMax:(NSInteger)max {
     NSInteger range = max - min + 1;
     return min + random() % range;
 }
 
 - (void)setEntryDate:(NSDate *)date {
+    [date retain];
+    [entryDate release];
     entryDate = date;
 }
 
@@ -53,6 +61,8 @@
     result = [[NSString alloc] initWithFormat:@"%@ = %ld and %ld",
                                               [df stringFromDate:entryDate],
                                               firstNumber, secondNumber];
+    [result autorelease];
+    [df release];
     return result;
 }
 
