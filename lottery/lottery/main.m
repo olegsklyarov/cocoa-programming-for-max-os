@@ -22,13 +22,13 @@ int main(int argc, const char *argv[]) {
         for (i = 0; i < 10; i++) {
             [weekComponents setWeekOfYear:i];
 
-            NSDate *iWeelFromNow;
-            iWeelFromNow = [cal dateByAddingComponents:weekComponents
+            NSDate *iWeekFromNow;
+            iWeekFromNow = [cal dateByAddingComponents:weekComponents
                                                 toDate:now
                                                options:0];
 
             LotteryEntry *newEntry =
-                [[LotteryEntry alloc] initWithEntryDate:iWeelFromNow];
+                [[LotteryEntry alloc] initWithEntryDate:iWeekFromNow];
 
             [array addObject:newEntry];
         }
