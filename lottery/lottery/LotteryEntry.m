@@ -29,4 +29,15 @@
     return secondNumber;
 }
 
+- (NSString *)description {
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setTimeStyle:NSDateFormatterNoStyle];
+    [df setDateStyle:NSDateFormatterMediumStyle];
+    NSString *result;
+    result = [[NSString alloc] initWithFormat:@"%@ = %d and %d",
+                                              [df stringFromDate:entryDate],
+                                              firstNumber, secondNumber];
+    return result;
+}
+
 @end
