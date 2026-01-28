@@ -13,7 +13,7 @@ This repository contains my hands-on solutions while learning Objective-C and Co
 - [x] Chapter 1: Cocoa: What Is It?
 - [x] Chapter 2: Let’s Get Started
 - [x] Chapter 3: Objective-C
-- [ ] Chapter 4: Memory Management
+- [x] Chapter 4: Memory Management
 - [ ] Chapter 5: Target/Action
 - [ ] Chapter 6: Helper Objects
 - [ ] Chapter 7: Key-Value Coding; Key-Value Observing
