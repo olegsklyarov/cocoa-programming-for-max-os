@@ -48,6 +48,7 @@
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setTimeStyle:NSDateFormatterNoStyle];
     [df setDateStyle:NSDateFormatterMediumStyle];
+    [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
     NSString *result;
     result = [[NSString alloc] initWithFormat:@"%@ = %ld and %ld",
                                               [df stringFromDate:entryDate],
