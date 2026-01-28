@@ -1,6 +1,4 @@
-```markdown
 # Cocoa Programming Exercises
-
 Practical implementations of exercises and challenges from the book **"Cocoa® Programming for Mac® OS X, Fourth Edition"** by Aaron Hillegass and Adam Preble.
 
 ## Overview
@@ -59,4 +57,3 @@ Hillegass, A., & Preble, A. (2012). *Cocoa Programming for Mac OS X* (4th ed.). 
 
 ## License
 Educational use. Refer to the book for original materials.
-```
