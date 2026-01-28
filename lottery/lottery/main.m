@@ -27,8 +27,8 @@ int main(int argc, const char *argv[]) {
                                                 toDate:now
                                                options:0];
 
-            LotteryEntry *newEntry = [[LotteryEntry alloc] init];
-            [newEntry setEntryDate:iWeelFromNow];
+            LotteryEntry *newEntry =
+                [[LotteryEntry alloc] initWithEntryDate:iWeelFromNow];
 
             [array addObject:newEntry];
         }

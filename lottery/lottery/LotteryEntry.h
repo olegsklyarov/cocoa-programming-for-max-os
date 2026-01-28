@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (NSInteger)randomIntegerBetweenMin:(NSInteger)min andMax:(NSInteger)max;
+- (id)initWithEntryDate:(NSDate *)theDate;
 - (void)setEntryDate:(NSDate *)date;
 - (NSDate *)entryDate;
 - (NSInteger)firstNumber;

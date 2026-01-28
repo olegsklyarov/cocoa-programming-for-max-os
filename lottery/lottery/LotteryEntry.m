@@ -9,9 +9,10 @@
 
 @implementation LotteryEntry
 
-- (id)init {
+- (id)initWithEntryDate:(NSDate *)theDate {
     self = [super init];
     if (self) {
+        entryDate = theDate;
         firstNumber = [LotteryEntry randomIntegerBetweenMin:0 andMax:100];
         secondNumber = [LotteryEntry randomIntegerBetweenMin:0 andMax:100];
     }
