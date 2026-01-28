@@ -19,6 +19,10 @@
     return self;
 }
 
+- (id)init {
+    return [self initWithEntryDate:[NSDate date]];
+}
+
 + (NSInteger)randomIntegerBetweenMin:(NSInteger)min andMax:(NSInteger)max {
     NSInteger range = max - min + 1;
     return min + random() % range;
