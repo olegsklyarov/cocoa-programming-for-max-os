@@ -12,10 +12,15 @@
 - (id)init {
     self = [super init];
     if (self) {
-        firstNumber = ((int)random() % 100) + 1;
-        secondNumber = ((int)random() % 100) + 1;
+        firstNumber = [LotteryEntry randomIntegerBetweenMin:0 andMax:100];
+        secondNumber = [LotteryEntry randomIntegerBetweenMin:0 andMax:100];
     }
     return self;
+}
+
++ (NSInteger)randomIntegerBetweenMin:(NSInteger)min andMax:(NSInteger)max {
+    NSInteger range = max - min + 1;
+    return min + random() % range;
 }
 
 - (void)setEntryDate:(NSDate *)date {
@@ -26,11 +31,11 @@
     return entryDate;
 }
 
-- (int)firstNumber {
+- (NSInteger)firstNumber {
     return firstNumber;
 }
 
-- (int)secondNumber {
+- (NSInteger)secondNumber {
     return secondNumber;
 }
 
@@ -39,7 +44,7 @@
     [df setTimeStyle:NSDateFormatterNoStyle];
     [df setDateStyle:NSDateFormatterMediumStyle];
     NSString *result;
-    result = [[NSString alloc] initWithFormat:@"%@ = %d and %d",
+    result = [[NSString alloc] initWithFormat:@"%@ = %ld and %ld",
                                               [df stringFromDate:entryDate],
                                               firstNumber, secondNumber];
     return result;

@@ -11,14 +11,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LotteryEntry : NSObject {
     NSDate *entryDate;
-    int firstNumber;
-    int secondNumber;
+    NSInteger firstNumber;
+    NSInteger secondNumber;
 }
 
++ (NSInteger)randomIntegerBetweenMin:(NSInteger)min andMax:(NSInteger)max;
 - (void)setEntryDate:(NSDate *)date;
 - (NSDate *)entryDate;
-- (int)firstNumber;
-- (int)secondNumber;
+- (NSInteger)firstNumber;
+- (NSInteger)secondNumber;
 @end
 
 NS_ASSUME_NONNULL_END
