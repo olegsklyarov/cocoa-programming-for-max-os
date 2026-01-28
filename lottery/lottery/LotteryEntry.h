@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
     int secondNumber;
 }
 
-- (void)prepareRandomNumbers;
 - (void)setEntryDate:(NSDate *)date;
 - (NSDate *)entryDate;
 - (int)firstNumber;

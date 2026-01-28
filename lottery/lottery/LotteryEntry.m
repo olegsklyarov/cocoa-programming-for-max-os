@@ -9,8 +9,13 @@
 
 @implementation LotteryEntry
 
-- (void)prepareRandomNumbers {
-    firstNumber = ((int)random() % 100) + 1;
+- (id)init {
+    self = [super init];
+    if (self) {
+        firstNumber = ((int)random() % 100) + 1;
+        secondNumber = ((int)random() % 100) + 1;
+    }
+    return self;
 }
 
 - (void)setEntryDate:(NSDate *)date {
