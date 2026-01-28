@@ -20,7 +20,7 @@ int main(int argc, const char *argv[]) {
 
         int i;
         for (i = 0; i < 10; i++) {
-            [weekComponents setWeek:i];
+            [weekComponents setWeekOfYear:i];
 
             NSDate *iWeelFromNow;
             iWeelFromNow = [cal dateByAddingComponents:weekComponents
