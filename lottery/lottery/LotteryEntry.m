@@ -58,10 +58,9 @@
     [df setDateStyle:NSDateFormatterMediumStyle];
     [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
     NSString *result;
-    result = [[NSString alloc] initWithFormat:@"%@ = %ld and %ld",
-                                              [df stringFromDate:entryDate],
-                                              firstNumber, secondNumber];
-    [result autorelease];
+    result = [NSString stringWithFormat:@"%@ = %ld and %ld",
+                                        [df stringFromDate:entryDate],
+                                        firstNumber, secondNumber];
     [df release];
     return result;
 }
