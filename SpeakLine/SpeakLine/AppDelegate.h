@@ -7,7 +7,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate> {
+    NSSpeechSynthesizer *_speechSynth;
+}
 
 @property(assign) IBOutlet NSWindow *window;
 @property(weak) IBOutlet NSTextField *textField;
