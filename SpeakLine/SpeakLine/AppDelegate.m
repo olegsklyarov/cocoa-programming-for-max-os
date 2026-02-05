@@ -6,6 +6,7 @@
 //
 
 #import "AppDelegate.h"
+#import <AVFoundation/AVFoundation.h>
 
 @implementation AppDelegate
 
@@ -19,9 +20,9 @@
     self = [super init];
     if (self) {
         NSLog(@"init");
-        _speechSynth = [[NSSpeechSynthesizer alloc] initWithVoice:nil];
-        [_speechSynth setDelegate:self];
-        _voices = [NSSpeechSynthesizer availableVoices];
+        _speechSynth = [[AVSpeechSynthesizer alloc] init];
+        _speechSynth.delegate = self;
+        _voices = [AVSpeechSynthesisVoice speechVoices];
     }
     return self;
 }
@@ -33,7 +34,18 @@
         NSLog(@"string from %@ is of zero-length", _textField);
         return;
     }
-    [_speechSynth startSpeakingString:string];
+    AVSpeechUtterance *utterance =
+        [AVSpeechUtterance speechUtteranceWithString:string];
+    // Apply currently selected voice if available
+    NSInteger selectedRow = [_tableView selectedRow];
+    if (selectedRow >= 0 && selectedRow < (NSInteger)[_voices count]) {
+        AVSpeechSynthesisVoice *voice =
+            (AVSpeechSynthesisVoice *)[_voices objectAtIndex:selectedRow];
+        if ([voice isKindOfClass:[AVSpeechSynthesisVoice class]]) {
+            utterance.voice = voice;
+        }
+    }
+    [_speechSynth speakUtterance:utterance];
     NSLog(@"Have started to say: %@", string);
 
     [_stopButton setEnabled:YES];
@@ -43,12 +55,20 @@
 
 - (IBAction)stopIt:(id)sender {
     NSLog(@"stopping");
-    [_speechSynth stopSpeaking];
+    [_speechSynth stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
 }
 
-- (void)speechSynthesizer:(NSSpeechSynthesizer *)sender
-        didFinishSpeaking:(BOOL)finishedSpeaking {
-    NSLog(@"finishSpeaking = %d", finishedSpeaking);
+- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer
+    didFinishSpeechUtterance:(AVSpeechUtterance *)utterance {
+    NSLog(@"didFinishSpeechUtterance");
+    [_stopButton setEnabled:NO];
+    [_speakButton setEnabled:YES];
+    [_tableView setEnabled:YES];
+}
+
+- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer
+    didCancelSpeechUtterance:(AVSpeechUtterance *)utterance {
+    NSLog(@"didCancelSpeechUtterance");
     [_stopButton setEnabled:NO];
     [_speakButton setEnabled:YES];
     [_tableView setEnabled:YES];
@@ -61,10 +81,9 @@
 - (id)tableView:(NSTableView *)tv
     objectValueForTableColumn:(NSTableColumn *)tableColumn
                           row:(NSInteger)row {
-    NSString *v = [_voices objectAtIndex:row];
-    NSDictionary *dict = [NSSpeechSynthesizer attributesForVoice:v];
-
-    return [dict objectForKey:NSVoiceName];
+    AVSpeechSynthesisVoice *voice =
+        (AVSpeechSynthesisVoice *)[_voices objectAtIndex:row];
+    return voice.name;
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
@@ -72,18 +91,31 @@
     if (row == -1) {
         return;
     }
-    NSString *selectedVoice = [_voices objectAtIndex:row];
-    [_speechSynth setVoice:selectedVoice];
-    NSLog(@"new voice = %@", selectedVoice);
+    AVSpeechSynthesisVoice *selectedVoice =
+        (AVSpeechSynthesisVoice *)[_voices objectAtIndex:row];
+    NSLog(@"new voice = %@ (%@)", selectedVoice.name, selectedVoice.language);
 }
 
 - (void)awakeFromNib {
-    // When the table view appears on screen, the default voice
-    // should be selected
-    NSString *defaultVoice = [NSSpeechSynthesizer defaultVoice];
-    NSInteger defaultRow = [_voices indexOfObject:defaultVoice];
-    NSIndexSet *indices = [NSIndexSet indexSetWithIndex:defaultRow];
-    [_tableView selectRowIndexes:indices byExtendingSelection:NO];
-    [_tableView scrollRowToVisible:defaultRow];
+    // When the table view appears on screen, select a reasonable default voice
+    // Try to match the system language first
+    NSString *preferredLang = [[NSLocale preferredLanguages] firstObject];
+    NSInteger defaultRow = NSNotFound;
+    for (NSInteger i = 0; i < (NSInteger)[_voices count]; i++) {
+        AVSpeechSynthesisVoice *voice =
+            (AVSpeechSynthesisVoice *)[_voices objectAtIndex:i];
+        if ([voice.language hasPrefix:preferredLang]) {
+            defaultRow = i;
+            break;
+        }
+    }
+    if (defaultRow == NSNotFound && [_voices count] > 0) {
+        defaultRow = 0;
+    }
+    if (defaultRow != NSNotFound) {
+        NSIndexSet *indices = [NSIndexSet indexSetWithIndex:defaultRow];
+        [_tableView selectRowIndexes:indices byExtendingSelection:NO];
+        [_tableView scrollRowToVisible:defaultRow];
+    }
 }
 @end

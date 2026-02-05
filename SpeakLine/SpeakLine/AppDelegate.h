@@ -5,13 +5,14 @@
 //  Created by Oleg on 05.02.2026.
 //
 
+#import <AVFoundation/AVFoundation.h>
 #import <Cocoa/Cocoa.h>
 
 @interface AppDelegate
-    : NSObject <NSApplicationDelegate, NSSpeechSynthesizerDelegate,
+    : NSObject <NSApplicationDelegate, AVSpeechSynthesizerDelegate,
                 NSTableViewDelegate> {
     NSArray *_voices;
-    NSSpeechSynthesizer *_speechSynth;
+    AVSpeechSynthesizer *_speechSynth;
 }
 
 @property(assign) IBOutlet NSWindow *window;
