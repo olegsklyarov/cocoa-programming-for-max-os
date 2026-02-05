@@ -18,4 +18,7 @@
 - (IBAction)stopIt:(id)sender;
 - (IBAction)sayIt:(id)sender;
 
+@property(weak) IBOutlet NSButton *stopButton;
+@property(weak) IBOutlet NSButton *speakButton;
+
 @end
