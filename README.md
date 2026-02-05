@@ -9,13 +9,22 @@ This repository contains my hands-on solutions while learning Objective-C and Co
 - Projects are named according to the exercise topic.
 - All code is manually typed, not copied, to reinforce understanding.
 
+## Exercises
+- [x] Random
+- [x] lottery
+- [x] Challenge: setDateFormat (p. 66)
+- [x] SpeakLine
+- [ ] Challenge: Count Characters (p. 96)
+- [ ] Challenge: Make a Delegate (p. 114)
+- [ ] Challenge: Make a Data Source (To-do list app, p. 114)
+
 ## Progress Checklist
 - [x] Chapter 1: Cocoa: What Is It?
 - [x] Chapter 2: Let’s Get Started
 - [x] Chapter 3: Objective-C
 - [x] Chapter 4: Memory Management
-- [ ] Chapter 5: Target/Action
-- [ ] Chapter 6: Helper Objects
+- [x] Chapter 5: Target/Action
+- [x] Chapter 6: Helper Objects
 - [ ] Chapter 7: Key-Value Coding; Key-Value Observing
 - [ ] Chapter 8: NSArrayController
 - [ ] Chapter 9: NSUndoManager
