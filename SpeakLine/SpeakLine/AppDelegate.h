@@ -9,8 +9,8 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
-@property (assign) IBOutlet NSWindow *window;
-@property (weak) IBOutlet NSTextField *textField;
+@property(assign) IBOutlet NSWindow *window;
+@property(weak) IBOutlet NSTextField *textField;
 
 - (IBAction)stopIt:(id)sender;
 - (IBAction)sayIt:(id)sender;
