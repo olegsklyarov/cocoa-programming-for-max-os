@@ -9,8 +9,10 @@
 
 @implementation AppDelegate
 
-@synthesize window = _window;
-@synthesize textField = _textField;
+//@synthesize window = _window;
+//@synthesize textField = _textField;
+//@synthesize speakButton = _speakButton;
+//@synthesize stopButton = _stopButton;
 
 - (id)init {
     self = [super init];
@@ -31,6 +33,9 @@
     }
     [_speechSynth startSpeakingString:string];
     NSLog(@"Have started to say: %@", string);
+
+    [_stopButton setEnabled:YES];
+    [_speakButton setEnabled:NO];
 }
 
 - (IBAction)stopIt:(id)sender {
@@ -41,5 +46,7 @@
 - (void)speechSynthesizer:(NSSpeechSynthesizer *)sender
         didFinishSpeaking:(BOOL)finishedSpeaking {
     NSLog(@"finishSpeaking = %d", finishedSpeaking);
+    [_stopButton setEnabled:NO];
+    [_speakButton setEnabled:YES];
 }
 @end
