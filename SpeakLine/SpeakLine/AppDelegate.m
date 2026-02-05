@@ -13,6 +13,7 @@
 @synthesize textField = _textField;
 @synthesize speakButton = _speakButton;
 @synthesize stopButton = _stopButton;
+@synthesize tableView = _tableView;
 
 - (id)init {
     self = [super init];
@@ -37,6 +38,7 @@
 
     [_stopButton setEnabled:YES];
     [_speakButton setEnabled:NO];
+    [_tableView setEnabled:NO];
 }
 
 - (IBAction)stopIt:(id)sender {
@@ -49,6 +51,7 @@
     NSLog(@"finishSpeaking = %d", finishedSpeaking);
     [_stopButton setEnabled:NO];
     [_speakButton setEnabled:YES];
+    [_tableView setEnabled:YES];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tv {
@@ -62,5 +65,15 @@
     NSDictionary *dict = [NSSpeechSynthesizer attributesForVoice:v];
 
     return [dict objectForKey:NSVoiceName];
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    NSInteger row = [_tableView selectedRow];
+    if (row == -1) {
+        return;
+    }
+    NSString *selectedVoice = [_voices objectAtIndex:row];
+    [_speechSynth setVoice:selectedVoice];
+    NSLog(@"new voice = %@", selectedVoice);
 }
 @end
