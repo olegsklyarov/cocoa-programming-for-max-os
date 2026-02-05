@@ -9,10 +9,10 @@
 
 @implementation AppDelegate
 
-//@synthesize window = _window;
-//@synthesize textField = _textField;
-//@synthesize speakButton = _speakButton;
-//@synthesize stopButton = _stopButton;
+@synthesize window = _window;
+@synthesize textField = _textField;
+@synthesize speakButton = _speakButton;
+@synthesize stopButton = _stopButton;
 
 - (id)init {
     self = [super init];
@@ -20,6 +20,7 @@
         NSLog(@"init");
         _speechSynth = [[NSSpeechSynthesizer alloc] initWithVoice:nil];
         [_speechSynth setDelegate:self];
+        _voices = [NSSpeechSynthesizer availableVoices];
     }
     return self;
 }
@@ -48,5 +49,18 @@
     NSLog(@"finishSpeaking = %d", finishedSpeaking);
     [_stopButton setEnabled:NO];
     [_speakButton setEnabled:YES];
+}
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tv {
+    return (NSInteger)[_voices count];
+}
+
+- (id)tableView:(NSTableView *)tv
+    objectValueForTableColumn:(NSTableColumn *)tableColumn
+                          row:(NSInteger)row {
+    NSString *v = [_voices objectAtIndex:row];
+    NSDictionary *dict = [NSSpeechSynthesizer attributesForVoice:v];
+
+    return [dict objectForKey:NSVoiceName];
 }
 @end
