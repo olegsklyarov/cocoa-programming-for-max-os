@@ -7,12 +7,9 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate ()
-
-@property (strong) IBOutlet NSWindow *window;
-@end
-
 @implementation AppDelegate
+
+// TODO: add _textField @synthesize
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
@@ -29,4 +26,9 @@
 }
 
 
+- (IBAction)sayIt:(id)sender {
+}
+
+- (IBAction)stopIt:(id)sender {
+}
 @end
