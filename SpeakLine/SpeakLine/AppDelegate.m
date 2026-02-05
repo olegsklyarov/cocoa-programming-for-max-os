@@ -76,4 +76,14 @@
     [_speechSynth setVoice:selectedVoice];
     NSLog(@"new voice = %@", selectedVoice);
 }
+
+- (void)awakeFromNib {
+    // When the table view appears on screen, the default voice
+    // should be selected
+    NSString *defaultVoice = [NSSpeechSynthesizer defaultVoice];
+    NSInteger defaultRow = [_voices indexOfObject:defaultVoice];
+    NSIndexSet *indices = [NSIndexSet indexSetWithIndex:defaultRow];
+    [_tableView selectRowIndexes:indices byExtendingSelection:NO];
+    [_tableView scrollRowToVisible:defaultRow];
+}
 @end
